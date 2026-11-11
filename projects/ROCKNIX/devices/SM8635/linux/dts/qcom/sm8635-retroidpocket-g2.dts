@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Copyright (C) 2026-present ROCKNIX (https://github.com/ROCKNIX).
+ */
+
+/dts-v1/;
+
+#include "sm8650.dtsi"
+
+/ {
+	model = "Retroid Pocket G2";
+	compatible = "retroidpocket,pocket-g2", "qcom,sm8635", "qcom,mtp";
+
+	chosen {
+		bootargs = "rootwait quiet console=ttyMSM0,115200n8";
+	};
+};
+
+&sdhc_2 {
+	status = "okay";
+};
