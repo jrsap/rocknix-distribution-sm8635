@@ -11,11 +11,52 @@
 	model = "Retroid Pocket G2";
 	compatible = "retroidpocket,pocket-g2", "qcom,sm8635", "qcom,mtp";
 
-	chosen {
-		bootargs = "rootwait quiet console=ttyMSM0,115200n8";
+	aliases {
+		serial0 = &uart_g2;
+		mmc1 = &sdhc_2;
 	};
+
+	chosen {
+		stdout-path = "serial0:115200n8";
+		bootargs = "root=/dev/mmcblk1p1 rootwait quiet console=ttyMSM0,115200n8";
+	};
+};
+
+&tlmm {
+	compatible = "qcom,cliffs-pinctrl";
+	reg = <0 0x0f000000 0 0x100000>;
+};
+
+&qupv3_id_0 {
+	uart_g2: serial@a94000 {
+		compatible = "qcom,geni-debug-uart";
+		reg = <0 0x00a94000 0 0x4000>;
+		interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH 0>;
+		clocks = <&gcc GCC_QUPV3_WRAP1_S5_CLK>;
+		clock-names = "se";
+		status = "okay";
+	};
+};
+
+&gpu {
+	compatible = "qcom,adreno-43030b00", "qcom,adreno";
 };
 
 &sdhc_2 {
 	status = "okay";
+	bus-width = <4>;
+	cd-gpios = <&tlmm 31 GPIO_ACTIVE_LOW>;
+	no-mmc;
+	no-sdio;
+};
+
+&i2c4 {
+	focaltech_ts: focaltech@38 {
+		compatible = "focaltech,fts_ts";
+		reg = <0x38>;
+		interrupt-parent = <&tlmm>;
+		interrupts = <129 IRQ_TYPE_EDGE_FALLING>;
+		reset-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
 };
