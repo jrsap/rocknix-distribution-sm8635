@@ -148,6 +148,9 @@
     <file>qcs8550-retroidpocket-rp6-top-dpad</file>
     <file>qcs8550-retroidpocket-rpnova</file>
   </SM8550>
+  <SM8635 mkimage_options="abl,bls,dtb" dtb_prefix="qcom">
+    <file>sm8635-retroidpocket-g2</file>
+  </SM8635>
   <SM8650 mkimage_options="abl,bls,dtb" dtb_prefix="qcom">
     <file>sm8650-ayaneo-ps2</file>
     <file>sm8650-konkr-pf</file>
